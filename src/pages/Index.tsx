@@ -1,12 +1,17 @@
 
 import { useAuth } from "@/components/AuthProvider";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  // If user is authenticated, redirect to dashboard
+  if (user) {
+    return <Navigate to="/dashboard" />;
+  }
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
