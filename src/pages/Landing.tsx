@@ -33,8 +33,7 @@ const Landing = () => {
                 <Button variant="outline" onClick={() => navigate("/auth")}>
                   Sign In
                 </Button>
-                <Button onClick={() => navigate("/auth?mode=signup")} className="flex items-center gap-2">
-                  
+                <Button onClick={() => navigate("/auth?mode=signup")} className="flex items-center gap-2">                
                   Sign Up
                 </Button>
               </div>
