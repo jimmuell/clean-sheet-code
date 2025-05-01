@@ -16,6 +16,11 @@ import {
   UserRound,
   Settings,
   LogOut,
+  LifeBuoy,
+  Blocks,
+  PanelLeft,
+  BarChart3,
+  FormInput
 } from "lucide-react";
 import {
   Sidebar,
@@ -27,6 +32,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
   SidebarRail,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarSeparator
 } from "@/components/ui/sidebar";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -40,14 +49,40 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     navigate("/");
   };
 
-  // Main navigation items
-  const navItems = [
-    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
-    { name: "Submissions", path: "/dashboard/submissions", icon: FileText },
-    { name: "Messages", path: "/dashboard/messages", icon: MessageSquare },
-    { name: "Documents", path: "/dashboard/documents", icon: FileText },
-    { name: "Profile", path: "/dashboard/profile", icon: UserRound },
-    { name: "Settings", path: "/dashboard/settings", icon: Settings },
+  // Main navigation items grouped by category
+  const navGroups = [
+    {
+      label: "Main",
+      items: [
+        { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+        { name: "Submissions", path: "/dashboard/submissions", icon: FileText }
+      ]
+    },
+    {
+      label: "Communication",
+      items: [
+        { name: "Messages", path: "/dashboard/messages", icon: MessageSquare }
+      ]
+    },
+    {
+      label: "Documents",
+      items: [
+        { name: "Documents", path: "/dashboard/documents", icon: FileText }
+      ]
+    },
+    {
+      label: "Account",
+      items: [
+        { name: "Profile", path: "/dashboard/profile", icon: UserRound },
+        { name: "Settings", path: "/dashboard/settings", icon: Settings }
+      ]
+    },
+    {
+      label: "Resources",
+      items: [
+        { name: "Help Center", path: "/dashboard/help", icon: LifeBuoy }
+      ]
+    }
   ];
 
   return (
@@ -58,18 +93,30 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
             <h2 className="text-xl font-bold px-4 group-data-[collapsible=icon]:hidden">LinkToLawyers</h2>
           </SidebarHeader>
           <SidebarContent>
-            <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild tooltip={item.name}>
-                    <Link to={item.path} className="text-lg py-4">
-                      <item.icon size={24} />
-                      <span className="text-xl">{item.name}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
+            {navGroups.map((group, index) => (
+              <React.Fragment key={group.label}>
+                {index > 0 && <SidebarSeparator />}
+                <SidebarGroup>
+                  <SidebarGroupLabel className="text-sm font-medium text-gray-500 uppercase tracking-wider">
+                    {group.label}
+                  </SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {group.items.map((item) => (
+                        <SidebarMenuItem key={item.name}>
+                          <SidebarMenuButton asChild tooltip={item.name}>
+                            <Link to={item.path} className="text-lg py-3">
+                              <item.icon size={22} />
+                              <span className="text-base ml-1">{item.name}</span>
+                            </Link>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </React.Fragment>
+            ))}
           </SidebarContent>
           <SidebarRail />
         </Sidebar>
