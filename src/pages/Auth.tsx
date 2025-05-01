@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,15 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState<"login" | "signup">("login");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Check for mode in URL query params
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    if (searchParams.get("mode") === "signup") {
+      setMode("signup");
+    }
+  }, [location]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -2,7 +2,7 @@
 import { useAuth } from "@/components/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, LogIn } from "lucide-react";
 import { useState } from "react";
 import SubmissionForm from "@/components/SubmissionForm";
 
@@ -29,9 +29,15 @@ const Landing = () => {
             {user ? (
               <Button onClick={() => navigate("/dashboard")}>Dashboard</Button>
             ) : (
-              <Button variant="outline" onClick={() => navigate("/auth")}>
-                Sign In
-              </Button>
+              <div className="flex items-center space-x-4">
+                <Button variant="outline" onClick={() => navigate("/auth")}>
+                  Sign In
+                </Button>
+                <Button onClick={() => navigate("/auth?mode=signup")} className="flex items-center gap-2">
+                  <LogIn size={18} />
+                  Sign Up
+                </Button>
+              </div>
             )}
           </div>
         </div>
