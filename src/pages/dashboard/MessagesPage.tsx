@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Search, Send, Check } from "lucide-react";
+import { Search, Send, Check, MessageSquare, Plus } from "lucide-react";
 
 // Types for our messaging system
 type Message = {
@@ -30,6 +29,7 @@ const MessagesPage = () => {
   const [currentConversation, setCurrentConversation] = useState<string | null>("1");
   const [messageInput, setMessageInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchMessageQuery, setSearchMessageQuery] = useState("");
 
   // Sample data
   const conversations: Conversation[] = [
@@ -144,9 +144,26 @@ const MessagesPage = () => {
     }
   };
 
+  const handleNewMessage = () => {
+    console.log("Create new message");
+    // This would open a dialog to select a user to message
+  };
+
   return (
     <div className="h-[calc(100vh-150px)] flex flex-col">
-      <h1 className="text-3xl font-bold mb-4">Messages</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-3xl font-bold">Messages</h1>
+        <Button 
+          onClick={handleNewMessage}
+          variant="outline" 
+          className="gap-2"
+          size="sm"
+        >
+          <MessageSquare className="h-4 w-4" />
+          <Plus className="h-3 w-3" />
+          New Message
+        </Button>
+      </div>
       
       <div className="flex flex-1 gap-4 overflow-hidden">
         {/* Left sidebar with conversation list */}
@@ -156,7 +173,7 @@ const MessagesPage = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input 
                 className="pl-10 bg-gray-50" 
-                placeholder="Search" 
+                placeholder="Search conversations" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -195,15 +212,26 @@ const MessagesPage = () => {
           {currentConversation ? (
             <>
               {/* Message thread header */}
-              <div className="border-b p-4 flex items-center gap-3">
-                <Avatar>
-                  <AvatarFallback>
-                    {conversations.find(c => c.id === currentConversation)?.avatar || "?"}
-                  </AvatarFallback>
-                </Avatar>
-                <span className="font-medium">
-                  {conversations.find(c => c.id === currentConversation)?.user || "Unknown User"}
-                </span>
+              <div className="border-b p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Avatar>
+                    <AvatarFallback>
+                      {conversations.find(c => c.id === currentConversation)?.avatar || "?"}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="font-medium">
+                    {conversations.find(c => c.id === currentConversation)?.user || "Unknown User"}
+                  </span>
+                </div>
+                <div className="relative w-64">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Input 
+                    className="pl-10 py-1 h-8 text-sm" 
+                    placeholder="Search in conversation" 
+                    value={searchMessageQuery}
+                    onChange={(e) => setSearchMessageQuery(e.target.value)}
+                  />
+                </div>
               </div>
               
               {/* Message thread content */}
