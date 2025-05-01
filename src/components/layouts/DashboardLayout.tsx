@@ -26,7 +26,6 @@ import {
   SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
-  TooltipProvider,
 } from "@/components/ui/sidebar";
 import { supabase } from "@/integrations/supabase/client";
 
