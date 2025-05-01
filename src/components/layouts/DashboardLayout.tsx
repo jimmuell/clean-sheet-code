@@ -80,7 +80,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.name}>
                   <SidebarMenuButton asChild tooltip={item.name}>
-                    <Link to={item.path}>
+                    <Link to={item.path} className="text-lg">
                       <item.icon />
                       <span>{item.name}</span>
                     </Link>
