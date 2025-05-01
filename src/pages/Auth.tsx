@@ -24,25 +24,68 @@ const Auth = () => {
     }
   }, [location]);
 
+  // Function to fetch user role and navigate to appropriate dashboard
+  const navigateBasedOnRole = async (userId: string) => {
+    try {
+      const { data: profileData, error: profileError } = await supabase
+        .from('profile')
+        .select('role')
+        .eq('user_id', userId)
+        .single();
+
+      if (profileError) {
+        console.error("Error fetching user role:", profileError);
+        navigate("/dashboard"); // Default route if role can't be determined
+        return;
+      }
+
+      const userRole = profileData?.role?.toLowerCase();
+      
+      // Navigate based on role
+      switch(userRole) {
+        case "attorney":
+          navigate("/dashboard/attorney");
+          break;
+        case "client":
+          navigate("/dashboard/client");
+          break;
+        case "admin":
+          navigate("/dashboard/admin");
+          break;
+        default:
+          navigate("/dashboard"); // Default dashboard
+      }
+    } catch (err) {
+      console.error("Error during role-based navigation:", err);
+      navigate("/dashboard"); // Default route if error
+    }
+  };
+
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { error, data } = await supabase.auth.signUp({
           email,
           password,
         });
         if (error) throw error;
         toast.success("Check your email to confirm your account!");
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { error, data } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
-        navigate("/");
+        
+        // Navigate based on role after successful login
+        if (data.user) {
+          await navigateBasedOnRole(data.user.id);
+        } else {
+          navigate("/dashboard"); // Fallback
+        }
       }
     } catch (error) {
       toast.error(error.message);

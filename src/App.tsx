@@ -17,6 +17,11 @@ import ProfilePage from "./pages/dashboard/ProfilePage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import NotFound from "./pages/NotFound";
 
+// Role-specific dashboard pages
+import AttorneyDashboard from "./pages/dashboard/AttorneyDashboard";
+import ClientDashboard from "./pages/dashboard/ClientDashboard";
+import AdminDashboard from "./pages/dashboard/AdminDashboard";
+
 const queryClient = new QueryClient();
 
 // Protected Route wrapper
@@ -25,6 +30,27 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   
   if (!user) {
     return <Navigate to="/auth" />;
+  }
+  
+  return <>{children}</>;
+};
+
+// Role-restricted route wrapper
+const RoleRestrictedRoute = ({ 
+  children, 
+  allowedRoles 
+}: { 
+  children: React.ReactNode;
+  allowedRoles: string[];
+}) => {
+  const { user, userRole } = useAuth();
+  
+  if (!user) {
+    return <Navigate to="/auth" />;
+  }
+  
+  if (userRole && !allowedRoles.includes(userRole.toLowerCase())) {
+    return <Navigate to="/dashboard" />;
   }
   
   return <>{children}</>;
@@ -48,6 +74,27 @@ const App = () => (
             }
           >
             <Route index element={<DashboardHome />} />
+            
+            {/* Role-specific dashboard routes */}
+            <Route path="attorney" element={
+              <RoleRestrictedRoute allowedRoles={["attorney"]}>
+                <AttorneyDashboard />
+              </RoleRestrictedRoute>
+            } />
+            
+            <Route path="client" element={
+              <RoleRestrictedRoute allowedRoles={["client"]}>
+                <ClientDashboard />
+              </RoleRestrictedRoute>
+            } />
+            
+            <Route path="admin" element={
+              <RoleRestrictedRoute allowedRoles={["admin"]}>
+                <AdminDashboard />
+              </RoleRestrictedRoute>
+            } />
+            
+            {/* Common dashboard routes */}
             <Route path="submissions" element={<SubmissionsPage />} />
             <Route path="messages" element={<MessagesPage />} />
             <Route path="documents" element={<DocumentsPage />} />

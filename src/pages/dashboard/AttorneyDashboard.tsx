@@ -1,0 +1,65 @@
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { BriefcaseIcon, UsersIcon, CalendarIcon } from "lucide-react";
+import { useAuth } from "@/components/AuthProvider";
+
+const AttorneyDashboard = () => {
+  const { user } = useAuth();
+
+  return (
+    <>
+      <h1 className="text-3xl font-bold mb-6">Attorney Dashboard</h1>
+      
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 mb-6">
+        <Card className="shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BriefcaseIcon className="h-5 w-5" />
+              Current Cases
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold mb-2">12</p>
+            <p className="text-muted-foreground">Active cases requiring attention</p>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <UsersIcon className="h-5 w-5" />
+              Client Requests
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold mb-2">5</p>
+            <p className="text-muted-foreground">New client requests awaiting review</p>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <CalendarIcon className="h-5 w-5" />
+              Upcoming Consultations
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold mb-2">3</p>
+            <p className="text-muted-foreground">Scheduled for this week</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Alert>
+        <AlertTitle>Welcome to your Attorney Dashboard!</AlertTitle>
+        <AlertDescription>
+          Here you can manage your cases, review client requests, and track your upcoming consultations.
+        </AlertDescription>
+      </Alert>
+    </>
+  );
+};
+
+export default AttorneyDashboard;
