@@ -16,7 +16,6 @@ import {
   UserRound,
   Settings,
   LogOut,
-  Menu,
 } from "lucide-react";
 import {
   Sidebar,
@@ -27,25 +26,8 @@ import {
   SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
-  SidebarRail,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import { supabase } from "@/integrations/supabase/client";
-
-// A separate component for the sidebar logo/brand that changes based on the sidebar state
-const SidebarBrand = () => {
-  const { state } = useSidebar();
-
-  return (
-    <div className="flex items-center px-4">
-      {state === "expanded" ? (
-        <h2 className="text-xl font-bold">LinkToLawyers</h2>
-      ) : (
-        <Menu className="mx-auto" />
-      )}
-    </div>
-  );
-};
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth();
@@ -68,19 +50,18 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gray-100">
-        <Sidebar className="bg-white border-r" collapsible="icon">
-          <SidebarRail />
+        <Sidebar className="bg-white border-r">
           <SidebarHeader>
-            <SidebarBrand />
+            <h2 className="text-xl font-bold px-4">LinkToLawyers</h2>
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild tooltip={item.name}>
-                    <Link to={item.path} className="text-lg">
+                  <SidebarMenuButton asChild>
+                    <Link to={item.path}>
                       <item.icon />
                       <span>{item.name}</span>
                     </Link>
