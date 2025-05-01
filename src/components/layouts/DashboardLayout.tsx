@@ -27,6 +27,7 @@ import {
   SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
+  SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
 import { supabase } from "@/integrations/supabase/client";
@@ -67,9 +68,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen flex w-full bg-gray-100">
-        <Sidebar className="bg-white border-r">
+        <Sidebar className="bg-white border-r" collapsible="icon">
+          <SidebarRail />
           <SidebarHeader>
             <SidebarBrand />
           </SidebarHeader>
