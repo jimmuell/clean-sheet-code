@@ -1,4 +1,4 @@
-
+import React from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
