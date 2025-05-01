@@ -5,9 +5,17 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/components/AuthProvider";
-import Index from "./pages/Index";
+
+// Pages
+import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import DashboardHome from "./pages/dashboard/DashboardHome";
+import SubmissionsPage from "./pages/dashboard/SubmissionsPage";
+import MessagesPage from "./pages/dashboard/MessagesPage";
+import DocumentsPage from "./pages/dashboard/DocumentsPage";
+import ProfilePage from "./pages/dashboard/ProfilePage";
+import SettingsPage from "./pages/dashboard/SettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,7 +39,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<Auth />} />
             <Route
               path="/dashboard"
@@ -40,7 +48,14 @@ const App = () => (
                   <Dashboard />
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route index element={<DashboardHome />} />
+              <Route path="submissions" element={<SubmissionsPage />} />
+              <Route path="messages" element={<MessagesPage />} />
+              <Route path="documents" element={<DocumentsPage />} />
+              <Route path="profile" element={<ProfilePage />} />
+              <Route path="settings" element={<SettingsPage />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
