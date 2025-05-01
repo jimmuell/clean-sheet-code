@@ -37,7 +37,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="min-h-screen flex w-full">
         <Sidebar>
           <SidebarHeader>
-            <h2 className="text-xl font-bold px-4">SupaLinkToLawyers</h2>
+            <h2 className="text-xl font-bold px-4">LinkToLawyers</h2>
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
