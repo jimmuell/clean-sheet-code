@@ -1,3 +1,4 @@
+
 import { useAuth } from "@/components/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -54,7 +55,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="min-h-screen flex w-full bg-gray-100">
         <Sidebar className="bg-white border-r" collapsible="icon">
           <SidebarHeader>
-            <h2 className="text-xl font-bold px-4">LinkToLawyers</h2>
+            <h2 className="text-xl font-bold px-4 group-data-[collapsible=icon]:hidden">LinkToLawyers</h2>
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
@@ -62,8 +63,8 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                 <SidebarMenuItem key={item.name}>
                   <SidebarMenuButton asChild tooltip={item.name}>
                     <Link to={item.path} className="text-lg py-4">
-                      <item.icon size={18} />
-                      <span className="text-sm">{item.name}</span>
+                      <item.icon size={24} />
+                      <span className="text-xl">{item.name}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
