@@ -1,5 +1,6 @@
 
-import { Navigate, Outlet, useLocation, useNavigate, useEffect } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 
