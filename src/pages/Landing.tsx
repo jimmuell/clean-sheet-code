@@ -34,7 +34,7 @@ const Landing = () => {
                   Sign In
                 </Button>
                 <Button onClick={() => navigate("/auth?mode=signup")} className="flex items-center gap-2">
-                  <LogIn size={18} />
+                  
                   Sign Up
                 </Button>
               </div>
