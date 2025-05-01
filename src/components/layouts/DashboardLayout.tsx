@@ -64,7 +64,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   <SidebarMenuButton asChild tooltip={item.name}>
                     <Link to={item.path} className="text-lg py-4">
                       <item.icon size={20} />
-                      <span className="text-xl">{item.name}</span>
+                      <span className="text-lg">{item.name}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
