@@ -26,6 +26,7 @@ import {
   SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
+  SidebarRail,
 } from "@/components/ui/sidebar";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -52,24 +53,25 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gray-100">
-        <Sidebar className="bg-white border-r">
+        <Sidebar className="bg-white border-r" collapsible="icon">
           <SidebarHeader>
-            <h2 className="text-lg font-bold px-4">LinkToLawyers</h2>
+            <h2 className="text-xl font-bold px-4">LinkToLawyers</h2>
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild>
-                    <Link to={item.path}>
-                      <item.icon />
-                      <span text-lg>{item.name}</span>
+                  <SidebarMenuButton asChild tooltip={item.name}>
+                    <Link to={item.path} className="text-xl py-4">
+                      <item.icon size={24} />
+                      <span className="text-xl">{item.name}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarContent>
+          <SidebarRail />
         </Sidebar>
 
         <div className="flex-1">
