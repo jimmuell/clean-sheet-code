@@ -30,7 +30,7 @@ export const ConversationSearch = ({
           onClick={onNewMessage}
           variant="outline"
           size="icon"
-          className="rounded-full h-10 w-10 flex-shrink-0"
+          className="rounded-md h-10 w-10 flex-shrink-0"
         >
           <Edit className="h-5 w-5 text-gray-500" />
         </Button>
