@@ -5,6 +5,7 @@ import { MessageItem } from "./MessageItem";
 import { MessageInput } from "./MessageInput";
 import { MessageThreadHeader } from "./MessageThreadHeader";
 import { Conversation, Message } from "./types";
+import { isEqual, isValid } from "date-fns";
 
 interface MessageThreadProps {
   currentConversation: Conversation | undefined;
@@ -18,12 +19,24 @@ export const MessageThread = ({
   onSendMessage
 }: MessageThreadProps) => {
   const [searchMessageQuery, setSearchMessageQuery] = useState("");
+  const [dateFilter, setDateFilter] = useState<Date | undefined>(undefined);
   
-  const filteredMessages = searchMessageQuery
-    ? messages.filter(msg => 
-        msg.content.toLowerCase().includes(searchMessageQuery.toLowerCase())
-      )
-    : messages;
+  const filteredMessages = messages.filter(msg => {
+    // Apply search filter
+    const matchesSearch = searchMessageQuery
+      ? msg.content.toLowerCase().includes(searchMessageQuery.toLowerCase())
+      : true;
+    
+    // Apply date filter
+    const matchesDate = dateFilter && isValid(dateFilter)
+      ? isEqual(
+          new Date(msg.timestamp),
+          dateFilter
+        )
+      : true;
+    
+    return matchesSearch && matchesDate;
+  });
     
   if (!currentConversation) {
     return (
@@ -42,16 +55,23 @@ export const MessageThread = ({
         userAvatar={currentConversation.avatar}
         searchQuery={searchMessageQuery}
         onSearchChange={setSearchMessageQuery}
+        onDateFilterChange={setDateFilter}
       />
       
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-        {filteredMessages.map((message) => (
-          <MessageItem 
-            key={message.id} 
-            message={message} 
-            avatarFallback={currentConversation.avatar}
-          />
-        ))}
+        {filteredMessages.length > 0 ? (
+          filteredMessages.map((message) => (
+            <MessageItem 
+              key={message.id} 
+              message={message} 
+              avatarFallback={currentConversation.avatar}
+            />
+          ))
+        ) : (
+          <div className="flex items-center justify-center h-full text-muted-foreground">
+            No messages match your filters
+          </div>
+        )}
       </div>
       
       <MessageInput onSendMessage={onSendMessage} />
