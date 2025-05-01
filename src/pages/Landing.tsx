@@ -3,17 +3,54 @@ import { useAuth } from "@/components/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, LogIn } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SubmissionForm from "@/components/SubmissionForm";
 
 const Landing = () => {
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
   const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
 
+  // Effect to redirect authenticated users to their role-specific dashboard
+  useEffect(() => {
+    if (user && userRole) {
+      switch (userRole.toLowerCase()) {
+        case "attorney":
+          navigate("/dashboard/attorney");
+          break;
+        case "client":
+          navigate("/dashboard/client");
+          break;
+        case "admin":
+          navigate("/dashboard/admin");
+          break;
+        default:
+          navigate("/dashboard"); // Default dashboard if role is unknown
+      }
+    }
+  }, [user, userRole, navigate]);
+
   const handleGetStarted = () => {
     if (user) {
-      navigate("/dashboard");
+      // If user is already authenticated, navigate based on role
+      if (userRole) {
+        switch (userRole.toLowerCase()) {
+          case "attorney":
+            navigate("/dashboard/attorney");
+            break;
+          case "client":
+            navigate("/dashboard/client");
+            break;
+          case "admin":
+            navigate("/dashboard/admin");
+            break;
+          default:
+            navigate("/dashboard");
+        }
+      } else {
+        // If userRole is not available yet, navigate to general dashboard
+        navigate("/dashboard");
+      }
     } else {
       setShowForm(true);
     }
@@ -27,7 +64,29 @@ const Landing = () => {
           <div className="text-2xl font-bold">LinkToLawyers</div>
           <div className="space-x-4">
             {user ? (
-              <Button onClick={() => navigate("/dashboard")}>Dashboard</Button>
+              <Button 
+                onClick={() => {
+                  if (userRole) {
+                    switch (userRole.toLowerCase()) {
+                      case "attorney":
+                        navigate("/dashboard/attorney");
+                        break;
+                      case "client":
+                        navigate("/dashboard/client");
+                        break;
+                      case "admin":
+                        navigate("/dashboard/admin");
+                        break;
+                      default:
+                        navigate("/dashboard");
+                    }
+                  } else {
+                    navigate("/dashboard");
+                  }
+                }}
+              >
+                Dashboard
+              </Button>
             ) : (
               <div className="flex items-center space-x-4">
                 <Button variant="outline" onClick={() => navigate("/auth")}>
