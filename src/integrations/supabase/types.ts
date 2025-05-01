@@ -46,7 +46,6 @@ export type Database = {
           created_at: string | null
           degree: string | null
           experience_years: number | null
-          full_name: string | null
           id: string
           languages: string[] | null
           law_firm: string | null
@@ -63,7 +62,6 @@ export type Database = {
           created_at?: string | null
           degree?: string | null
           experience_years?: number | null
-          full_name?: string | null
           id?: string
           languages?: string[] | null
           law_firm?: string | null
@@ -80,7 +78,6 @@ export type Database = {
           created_at?: string | null
           degree?: string | null
           experience_years?: number | null
-          full_name?: string | null
           id?: string
           languages?: string[] | null
           law_firm?: string | null
@@ -388,8 +385,10 @@ export type Database = {
           created_at: string | null
           email: string | null
           first_name: string | null
+          full_name: string | null
           id: number
           last_name: string | null
+          phone: string | null
           profile_URL: string | null
           role: string | null
           updated_at: string | null
@@ -399,8 +398,10 @@ export type Database = {
           created_at?: string | null
           email?: string | null
           first_name?: string | null
+          full_name?: string | null
           id?: number
           last_name?: string | null
+          phone?: string | null
           profile_URL?: string | null
           role?: string | null
           updated_at?: string | null
@@ -410,8 +411,10 @@ export type Database = {
           created_at?: string | null
           email?: string | null
           first_name?: string | null
+          full_name?: string | null
           id?: number
           last_name?: string | null
+          phone?: string | null
           profile_URL?: string | null
           role?: string | null
           updated_at?: string | null
