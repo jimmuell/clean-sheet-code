@@ -1,10 +1,11 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Search, Send, Check, MessageSquare, Plus } from "lucide-react";
+import { Search, Send, Check, MessageSquare, Plus, Edit } from "lucide-react";
 
 // Types for our messaging system
 type Message = {
@@ -151,32 +152,32 @@ const MessagesPage = () => {
 
   return (
     <div className="h-[calc(100vh-150px)] flex flex-col">
-      <div className="flex justify-between items-center mb-4">
+      <div className="mb-4">
         <h1 className="text-3xl font-bold">Messages</h1>
-        <Button 
-          onClick={handleNewMessage}
-          variant="outline" 
-          className="gap-2"
-          size="sm"
-        >
-          <MessageSquare className="h-4 w-4" />
-          <Plus className="h-3 w-3" />
-          New Message
-        </Button>
       </div>
       
       <div className="flex flex-1 gap-4 overflow-hidden">
         {/* Left sidebar with conversation list */}
         <Card className="w-1/3 max-w-sm flex flex-col overflow-hidden shadow-sm">
           <div className="p-4 border-b">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input 
-                className="pl-10 bg-gray-50" 
-                placeholder="Search conversations" 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+            <div className="flex gap-2 items-center">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input 
+                  className="pl-10 bg-gray-50" 
+                  placeholder="Search conversations" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <Button
+                onClick={handleNewMessage}
+                variant="outline"
+                size="icon"
+                className="rounded-full h-10 w-10 flex-shrink-0"
+              >
+                <Edit className="h-5 w-5 text-gray-500" />
+              </Button>
             </div>
           </div>
           
