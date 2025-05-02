@@ -3,8 +3,8 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface RoleSelectorProps {
-  userRole: "client" | "attorney";
-  setUserRole: (role: "client" | "attorney") => void;
+  userRole: "client" | "attorney" | "admin";
+  setUserRole: (role: "client" | "attorney" | "admin") => void;
 }
 
 export const RoleSelector = ({ userRole, setUserRole }: RoleSelectorProps) => {
@@ -14,7 +14,7 @@ export const RoleSelector = ({ userRole, setUserRole }: RoleSelectorProps) => {
       <RadioGroup
         defaultValue="client"
         value={userRole}
-        onValueChange={(value) => setUserRole(value as "client" | "attorney")}
+        onValueChange={(value) => setUserRole(value as "client" | "attorney" | "admin")}
         className="flex flex-col space-y-1"
       >
         <div className="flex items-center space-x-2">

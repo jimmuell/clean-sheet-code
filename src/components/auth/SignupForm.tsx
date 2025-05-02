@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -6,25 +7,61 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { RoleSelector } from "./RoleSelector";
+import { AttorneyVerificationForm } from "./AttorneyVerificationForm";
+import { VerificationPending } from "./VerificationPending";
 
 interface SignupFormProps {
   navigateBasedOnRole: (userId: string) => Promise<void>;
   onSwitchToLogin: () => void;
 }
 
+// Define the signup steps
+type SignupStep = "credentials" | "verification" | "pending";
+
 export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [userRole, setUserRole] = useState<"client" | "attorney">("client");
+  const [userRole, setUserRole] = useState<"client" | "attorney" | "admin">("client");
+  const [currentStep, setCurrentStep] = useState<SignupStep>("credentials");
+  const [userId, setUserId] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleInitialSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      // For signup, we need to create the user and add their role
+      // For attorney signup, we'll create the account but not set the role yet
+      if (userRole === "attorney") {
+        const { error: signUpError, data } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              role: "pending_attorney" // Mark as pending initially
+            }
+          }
+        });
+        
+        if (signUpError) {
+          if (signUpError.message.includes("User already registered")) {
+            toast.info("This email is already registered. Please sign in instead.");
+          } else {
+            throw signUpError;
+          }
+        } else if (data.user) {
+          // Store the user ID for the verification step
+          setUserId(data.user.id);
+          // Move to the verification step
+          setCurrentStep("verification");
+        }
+        
+        setIsLoading(false);
+        return;
+      }
+      
+      // For client signup, proceed with regular flow
       const { error: signUpError, data } = await supabase.auth.signUp({
         email,
         password,
@@ -38,7 +75,6 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
       // Handle the case where the user is already registered
       if (signUpError) {
         if (signUpError.message.includes("User already registered")) {
-          // If user already exists, try to sign in instead
           toast.info("This email is already registered. Trying to sign in...");
           
           const { error: signInError, data: signInData } = await supabase.auth.signInWithPassword({
@@ -47,28 +83,24 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
           });
           
           if (signInError) {
-            // If sign in fails, show the original error
             throw signUpError;
           } else {
             toast.success("Signed in successfully!");
-            // Navigate based on role after successful login
             if (signInData.user) {
               await navigateBasedOnRole(signInData.user.id);
             } else {
-              navigate("/dashboard"); // Fallback
+              navigate("/dashboard");
             }
             return;
           }
         } else {
-          // For other errors, just throw the original error
           throw signUpError;
         }
       }
 
-      // Create profile entry with role - this uses the service role client to bypass RLS
+      // Create profile entry with role
       if (data.user) {
         try {
-          // First try with the current user's auth
           const { error: profileError } = await supabase
             .from('profile')
             .insert([{ 
@@ -79,8 +111,6 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
             
           if (profileError) {
             console.error("Profile creation error:", profileError);
-            // If there's an error with profile creation, log it but don't throw
-            // The user account is still created, so we can proceed
             toast.warning("Account created, but profile setup encountered an issue. Some features may be limited.");
           } else {
             toast.success("Account created successfully!");
@@ -90,7 +120,6 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
           if (userRole === "client") {
             navigate("/dashboard/new-submission");
           } else {
-            // Otherwise navigate based on role
             await navigateBasedOnRole(data.user.id);
           }
         } catch (profileSetupError) {
@@ -106,50 +135,91 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
     }
   };
 
-  return (
-    <form onSubmit={handleSignup} className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
+  const handleVerificationSubmit = async () => {
+    // Here we would actually submit the verification data
+    // For now, just show the pending screen
+    setCurrentStep("pending");
+    
+    // In a real implementation, we would:
+    // 1. Upload documents to storage
+    // 2. Create verification record in database
+    // 3. Update user role to pending_attorney if not already done
+    // 4. Notify admins about new attorney signup
+    
+    toast.success("Verification information submitted successfully!");
+  };
 
-      <RoleSelector userRole={userRole} setUserRole={setUserRole} />
+  const handleCancelVerification = async () => {
+    // In a real implementation we might:
+    // 1. Delete the partially created account
+    // 2. Or mark it as abandoned
+    
+    setCurrentStep("credentials");
+    toast.info("Verification cancelled. You can try again or sign up as a client.");
+  };
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Loading..." : "Create Account"}
-      </Button>
+  // Render the appropriate step
+  const renderStep = () => {
+    switch (currentStep) {
+      case "verification":
+        return (
+          <AttorneyVerificationForm
+            onSubmit={handleVerificationSubmit}
+            onCancel={handleCancelVerification}
+          />
+        );
+      case "pending":
+        return <VerificationPending />;
+      case "credentials":
+      default:
+        return (
+          <form onSubmit={handleInitialSignup} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-      <div className="mt-4 text-center text-sm">
-        <p>
-          Already have an account?{" "}
-          <Button
-            variant="link"
-            className="p-0 h-auto"
-            onClick={onSwitchToLogin}
-            type="button"
-          >
-            Sign in
-          </Button>
-        </p>
-      </div>
-    </form>
-  );
+            <RoleSelector userRole={userRole} setUserRole={setUserRole} />
+
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? "Loading..." : userRole === "attorney" ? "Continue to Verification" : "Create Account"}
+            </Button>
+
+            <div className="mt-4 text-center text-sm">
+              <p>
+                Already have an account?{" "}
+                <Button
+                  variant="link"
+                  className="p-0 h-auto"
+                  onClick={onSwitchToLogin}
+                  type="button"
+                >
+                  Sign in
+                </Button>
+              </p>
+            </div>
+          </form>
+        );
+    }
+  };
+
+  return <div className="space-y-4">{renderStep()}</div>;
 };
