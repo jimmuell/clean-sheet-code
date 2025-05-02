@@ -105,7 +105,7 @@ const MessagesPage = () => {
     console.log("Sending message:", content);
   };
 
-  const handleNewMessage = () => {
+  const handleNewConversation = () => {
     console.log("Create new message");
     // This would open a dialog to select a user to message
   };
@@ -118,9 +118,9 @@ const MessagesPage = () => {
     <div className="h-[calc(100vh-150px)] flex flex-col">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Messages</h1>
-        <Button onClick={handleNewMessage} className="gap-2">
+        <Button onClick={handleNewConversation} className="gap-2">
           <MessageSquarePlus className="h-4 w-4" />
-          New Message
+          New Conversation
         </Button>
       </div>
       
@@ -129,7 +129,7 @@ const MessagesPage = () => {
           conversations={conversations}
           currentConversationId={currentConversation}
           onConversationSelect={setCurrentConversation}
-          onNewMessage={handleNewMessage}
+          onNewMessage={handleNewConversation}
         />
         
         <MessageThread
