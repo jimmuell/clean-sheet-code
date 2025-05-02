@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -27,8 +26,25 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
   const [userId, setUserId] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // Handle role change - redirect clients to the submission form
+  const handleRoleChange = (role: "client" | "attorney" | "admin") => {
+    setUserRole(role);
+    
+    if (role === "client") {
+      // Redirect to the landing page with the form showing
+      navigate("/?showForm=true");
+    }
+  };
+
   const handleInitialSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // If client role is selected, redirect to the multi-step form
+    if (userRole === "client") {
+      navigate("/?showForm=true");
+      return;
+    }
+    
     setIsLoading(true);
 
     try {
@@ -61,73 +77,10 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
         return;
       }
       
-      // For client signup, proceed with regular flow
-      const { error: signUpError, data } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            role: userRole
-          }
-        }
-      });
+      // For client signup, this should never be reached now because we redirect earlier,
+      // but keeping as a fallback
+      navigate("/?showForm=true");
       
-      // Handle the case where the user is already registered
-      if (signUpError) {
-        if (signUpError.message.includes("User already registered")) {
-          toast.info("This email is already registered. Trying to sign in...");
-          
-          const { error: signInError, data: signInData } = await supabase.auth.signInWithPassword({
-            email,
-            password
-          });
-          
-          if (signInError) {
-            throw signUpError;
-          } else {
-            toast.success("Signed in successfully!");
-            if (signInData.user) {
-              await navigateBasedOnRole(signInData.user.id);
-            } else {
-              navigate("/dashboard");
-            }
-            return;
-          }
-        } else {
-          throw signUpError;
-        }
-      }
-
-      // Create profile entry with role
-      if (data.user) {
-        try {
-          const { error: profileError } = await supabase
-            .from('profile')
-            .insert([{ 
-              user_id: data.user.id,
-              role: userRole,
-              email: email
-            }]);
-            
-          if (profileError) {
-            console.error("Profile creation error:", profileError);
-            toast.warning("Account created, but profile setup encountered an issue. Some features may be limited.");
-          } else {
-            toast.success("Account created successfully!");
-          }
-          
-          // If the user is a client, redirect to the new submission form
-          if (userRole === "client") {
-            navigate("/dashboard/new-submission");
-          } else {
-            await navigateBasedOnRole(data.user.id);
-          }
-        } catch (profileSetupError) {
-          console.error("Profile setup failed:", profileSetupError);
-          toast.warning("Account created, but profile setup failed. Please contact support.");
-          navigate("/dashboard");
-        }
-      }
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -197,10 +150,10 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
               />
             </div>
 
-            <RoleSelector userRole={userRole} setUserRole={setUserRole} />
+            <RoleSelector userRole={userRole} setUserRole={handleRoleChange} />
 
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Loading..." : userRole === "attorney" ? "Continue to Verification" : "Create Account"}
+              {isLoading ? "Loading..." : userRole === "attorney" ? "Continue to Verification" : "Get Started"}
             </Button>
 
             <div className="mt-4 text-center text-sm">

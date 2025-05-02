@@ -1,6 +1,6 @@
 
 import { useAuth } from "@/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -9,7 +9,16 @@ import SubmissionForm from "@/components/SubmissionForm";
 const Landing = () => {
   const { user, userRole } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [showForm, setShowForm] = useState(false);
+
+  // Effect to check for showForm query parameter
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    if (searchParams.get("showForm") === "true") {
+      setShowForm(true);
+    }
+  }, [location]);
 
   // Effect to redirect authenticated users to their role-specific dashboard
   useEffect(() => {
