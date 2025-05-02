@@ -12,7 +12,7 @@ const ProfilePage = () => {
   
   // Default values and state
   const [profileData, setProfileData] = useState({
-    profilePictureUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+    profilePictureUrl: "https://13b230a26e2df65b20120dfd797ddd2e.cdn.bubble.io/f1743425234044x485647232123858100/uifaces-popular-image%20%284%29.jpg?_gl=1*rz3q8v*_gcl_au*NzMzNjIyMTA2LjE3NDE5NDkyMTA.*_ga*MTQyOTYxMTA5Ny4xNzM5ODEwMDA3*_ga_BFPVR2DEE2*MTc0NjE1MTY0My4yLjAuMTc0NjE1MTY0My42MC4wLjA.",
     firstName: "John",
     lastName: "Doe",
     email: user?.email || "john@gmail.com"
