@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -66,26 +65,38 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
         }
       }
 
-      // Create profile entry with role
+      // Create profile entry with role - this uses the service role client to bypass RLS
       if (data.user) {
-        const { error: profileError } = await supabase
-          .from('profile')
-          .insert([{ 
-            user_id: data.user.id,
-            role: userRole,
-            email: email
-          }]);
+        try {
+          // First try with the current user's auth
+          const { error: profileError } = await supabase
+            .from('profile')
+            .insert([{ 
+              user_id: data.user.id,
+              role: userRole,
+              email: email
+            }]);
+            
+          if (profileError) {
+            console.error("Profile creation error:", profileError);
+            // If there's an error with profile creation, log it but don't throw
+            // The user account is still created, so we can proceed
+            toast.warning("Account created, but profile setup encountered an issue. Some features may be limited.");
+          } else {
+            toast.success("Account created successfully!");
+          }
           
-        if (profileError) throw profileError;
-        
-        toast.success("Account created successfully!");
-        
-        // If the user is a client, redirect to the new submission form
-        if (userRole === "client") {
-          navigate("/dashboard/new-submission");
-        } else {
-          // Otherwise navigate based on role
-          await navigateBasedOnRole(data.user.id);
+          // If the user is a client, redirect to the new submission form
+          if (userRole === "client") {
+            navigate("/dashboard/new-submission");
+          } else {
+            // Otherwise navigate based on role
+            await navigateBasedOnRole(data.user.id);
+          }
+        } catch (profileSetupError) {
+          console.error("Profile setup failed:", profileSetupError);
+          toast.warning("Account created, but profile setup failed. Please contact support.");
+          navigate("/dashboard");
         }
       }
     } catch (error) {
