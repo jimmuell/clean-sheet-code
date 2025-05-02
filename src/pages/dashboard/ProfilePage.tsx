@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useAuth } from "@/components/AuthProvider";
+import { useAuth } from "@/auth";
 
 const ProfilePage = () => {
   const { user } = useAuth();

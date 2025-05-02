@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { UsersIcon, ScaleIcon, BarChartIcon } from "lucide-react";
-import { useAuth } from "@/components/AuthProvider";
+import { useAuth } from "@/auth";
 
 const AdminDashboard = () => {
   const { user } = useAuth();

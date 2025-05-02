@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { BriefcaseIcon, UsersIcon, CalendarIcon } from "lucide-react";
-import { useAuth } from "@/components/AuthProvider";
+import { useAuth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 

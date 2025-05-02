@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { InfoIcon } from "lucide-react";
-import { useAuth } from "@/components/AuthProvider";
+import { useAuth } from "@/auth";
 
 type UserRole = "client" | "attorney" | "admin";
 
