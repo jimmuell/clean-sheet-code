@@ -1,15 +1,16 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { SignupForm } from "@/components/auth/SignupForm";
+import { useAuth } from "@/auth";
 
 const Auth = () => {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
 
   // Check for mode in URL query params
   useEffect(() => {

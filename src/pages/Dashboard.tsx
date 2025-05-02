@@ -1,7 +1,7 @@
 
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useAuth } from "@/components/AuthProvider";
+import { useAuth } from "@/auth";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 
 const Dashboard = () => {

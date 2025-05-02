@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useAuth } from "@/components/AuthProvider";
+import { useAuth } from "@/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
