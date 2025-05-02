@@ -18,6 +18,7 @@ import SettingsPage from "./pages/dashboard/SettingsPage";
 import HelpCenterPage from "./pages/dashboard/HelpCenterPage";
 import CalendarPage from "./pages/dashboard/CalendarPage";
 import NotFound from "./pages/NotFound";
+import SubmissionForm from "./components/SubmissionForm";
 
 // Role-specific dashboard pages
 import AttorneyDashboard from "./pages/dashboard/AttorneyDashboard";
@@ -98,6 +99,7 @@ const App = () => (
             
             {/* Common dashboard routes */}
             <Route path="submissions" element={<SubmissionsPage />} />
+            <Route path="new-submission" element={<SubmissionForm />} /> 
             <Route path="messages" element={<MessagesPage />} />
             <Route path="calendar" element={<CalendarPage />} />
             <Route path="documents" element={<DocumentsPage />} />
