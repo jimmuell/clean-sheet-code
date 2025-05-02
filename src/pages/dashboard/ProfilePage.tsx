@@ -1,18 +1,110 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "@/components/AuthProvider";
 
 const ProfilePage = () => {
+  const { user } = useAuth();
+  
+  // Default values and state
+  const [profileData, setProfileData] = useState({
+    profilePictureUrl: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+    firstName: "John",
+    lastName: "Doe",
+    email: user?.email || "john@gmail.com"
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setProfileData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real app, this would save the profile data to the database
+    console.log("Saving profile data:", profileData);
+    // Here you would typically make an API call to update the profile
+  };
+
   return (
     <>
-      <h1 className="text-3xl font-bold mb-6">Profile</h1>
+      <h1 className="text-3xl font-bold mb-6">Profile Settings</h1>
       <Card className="shadow-sm">
-        <CardHeader>
-          <CardTitle>Your Profile</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground">
-            Manage your personal information and account details.
-          </p>
+        <CardContent className="p-8">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Profile picture section */}
+            <div className="flex flex-col items-center mb-8">
+              <Avatar className="h-28 w-28 mb-4">
+                <AvatarImage src={profileData.profilePictureUrl} alt="Profile picture" />
+                <AvatarFallback className="text-2xl">
+                  {`${profileData.firstName.charAt(0)}${profileData.lastName.charAt(0)}`}
+                </AvatarFallback>
+              </Avatar>
+            </div>
+
+            {/* Profile form fields */}
+            <div className="space-y-5">
+              <div className="space-y-2">
+                <Label htmlFor="profilePictureUrl">Profile Picture URL</Label>
+                <Input 
+                  id="profilePictureUrl"
+                  name="profilePictureUrl"
+                  value={profileData.profilePictureUrl}
+                  onChange={handleInputChange}
+                  placeholder="Enter profile picture URL"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="firstName">First Name</Label>
+                <Input 
+                  id="firstName"
+                  name="firstName"
+                  value={profileData.firstName}
+                  onChange={handleInputChange}
+                  placeholder="Enter your first name"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="lastName">Last Name</Label>
+                <Input 
+                  id="lastName"
+                  name="lastName"
+                  value={profileData.lastName}
+                  onChange={handleInputChange}
+                  placeholder="Enter your last name"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input 
+                  id="email"
+                  name="email"
+                  value={profileData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email"
+                  type="email"
+                />
+              </div>
+
+              {/* Save button */}
+              <Button 
+                type="submit"
+                className="w-full bg-primary hover:bg-primary/90 text-white mt-6"
+              >
+                Save Changes
+              </Button>
+            </div>
+          </form>
         </CardContent>
       </Card>
     </>
