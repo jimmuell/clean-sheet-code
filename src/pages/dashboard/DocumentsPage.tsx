@@ -4,6 +4,7 @@ import DocumentUploadButton from "@/components/documents/DocumentUploadButton";
 import DocumentOverview from "@/components/documents/DocumentOverview";
 import RecentDocuments from "@/components/documents/RecentDocuments";
 import { Document } from "@/components/documents/DocumentTable";
+import FileUploadDialog from "@/components/documents/FileUploadDialog";
 
 const DocumentsPage = () => {
   const [documents, setDocuments] = useState<Document[]>([
@@ -30,10 +31,14 @@ const DocumentsPage = () => {
     }
   ]);
 
+  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
+
   const handleFileUpload = () => {
-    // In a real implementation, this would open a file picker
-    // and handle the upload to a backend service
-    console.log("File upload clicked");
+    setIsUploadDialogOpen(true);
+  };
+
+  const handleUploadComplete = (newDocument: Document) => {
+    setDocuments(prev => [newDocument, ...prev]);
   };
 
   return (
@@ -53,6 +58,13 @@ const DocumentsPage = () => {
         {/* Recent Documents Grid */}
         <RecentDocuments documents={documents} />
       </div>
+
+      {/* Upload Dialog */}
+      <FileUploadDialog
+        open={isUploadDialogOpen}
+        onOpenChange={setIsUploadDialogOpen}
+        onUploadComplete={handleUploadComplete}
+      />
     </>
   );
 };
