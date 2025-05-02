@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { BriefcaseIcon, UsersIcon, CalendarIcon } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const AttorneyDashboard = () => {
   const { user } = useAuth();
@@ -47,7 +49,12 @@ const AttorneyDashboard = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold mb-2">3</p>
-            <p className="text-muted-foreground">Scheduled for this week</p>
+            <p className="text-muted-foreground mb-3">Scheduled for this week</p>
+            <Link to="/dashboard/calendar">
+              <Button variant="outline" size="sm" className="w-full">
+                <CalendarIcon className="h-4 w-4 mr-2" /> Manage Calendar
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

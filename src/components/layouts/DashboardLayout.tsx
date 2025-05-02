@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
@@ -19,6 +20,7 @@ import {
   LogOut,
   LifeBuoy,
   ChevronDown,
+  Calendar,
 } from "lucide-react";
 import {
   Sidebar,
@@ -60,7 +62,8 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     {
       label: "Communication",
       items: [
-        { name: "Messages", path: "/dashboard/messages", icon: MessageSquare }
+        { name: "Messages", path: "/dashboard/messages", icon: MessageSquare },
+        { name: "Calendar", path: "/dashboard/calendar", icon: Calendar }
       ]
     },
     {
