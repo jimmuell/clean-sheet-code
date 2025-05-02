@@ -3,6 +3,8 @@ import { useState } from "react";
 import { ConversationList } from "@/components/messaging/ConversationList";
 import { MessageThread } from "@/components/messaging/MessageThread";
 import { Conversation, Message } from "@/components/messaging/types";
+import { Button } from "@/components/ui/button";
+import { MessageSquarePlus } from "lucide-react";
 
 const MessagesPage = () => {
   const [currentConversation, setCurrentConversation] = useState<string | null>("1");
@@ -114,10 +116,10 @@ const MessagesPage = () => {
 
   return (
     <div className="h-[calc(100vh-150px)] flex flex-col">
-      <div className="mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Messages</h1>
-         <Button onClick={} className="gap-2">
-          <Upload className="h-4 w-4" />
+        <Button onClick={handleNewMessage} className="gap-2">
+          <MessageSquarePlus className="h-4 w-4" />
           New Message
         </Button>
       </div>
