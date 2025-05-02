@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -71,7 +72,8 @@ export const SignupForm = ({ navigateBasedOnRole, onSwitchToLogin }: SignupFormP
           .from('profile')
           .insert([{ 
             user_id: data.user.id,
-            role: userRole
+            role: userRole,
+            email: email
           }]);
           
         if (profileError) throw profileError;
