@@ -15,6 +15,7 @@ import MessagesPage from "./pages/dashboard/MessagesPage";
 import DocumentsPage from "./pages/dashboard/DocumentsPage";
 import ProfilePage from "./pages/dashboard/ProfilePage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
+import HelpCenterPage from "./pages/dashboard/HelpCenterPage";
 import NotFound from "./pages/NotFound";
 
 // Role-specific dashboard pages
@@ -100,6 +101,7 @@ const App = () => (
             <Route path="documents" element={<DocumentsPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="help" element={<HelpCenterPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
