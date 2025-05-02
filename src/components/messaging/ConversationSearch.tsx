@@ -1,12 +1,10 @@
 
 import { Search, Edit } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 interface ConversationSearchProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  onNewMessage: () => void;
 }
 
 export const ConversationSearch = ({ 
@@ -26,14 +24,6 @@ export const ConversationSearch = ({
             onChange={(e) => onSearchChange(e.target.value)}
           />
         </div>
-        <Button
-          onClick={onNewMessage}
-          variant="outline"
-          size="icon"
-          className="rounded-md h-10 w-10 flex-shrink-0"
-        >
-          <Edit className="h-5 w-5 text-gray-500" />
-        </Button>
       </div>
     </div>
   );
