@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -18,7 +17,7 @@ import SettingsPage from "./pages/dashboard/SettingsPage";
 import HelpCenterPage from "./pages/dashboard/HelpCenterPage";
 import CalendarPage from "./pages/dashboard/CalendarPage";
 import NotFound from "./pages/NotFound";
-import SubmissionForm from "./components/SubmissionForm";
+import { SubmissionForm } from "./components/submission";
 
 // Role-specific dashboard pages
 import AttorneyDashboard from "./pages/dashboard/AttorneyDashboard";

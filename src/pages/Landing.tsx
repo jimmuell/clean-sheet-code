@@ -1,10 +1,9 @@
-
 import { useAuth } from "@/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, LogIn } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import SubmissionForm from "@/components/SubmissionForm";
+import { SubmissionForm } from "@/components/submission";
 
 const Landing = () => {
   const { user, userRole } = useAuth();
