@@ -1,12 +1,13 @@
 import React from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { useNavigate, Link } from "react-router-dom";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,10 +18,7 @@ import {
   Settings,
   LogOut,
   LifeBuoy,
-  Blocks,
-  PanelLeft,
-  BarChart3,
-  FormInput
+  ChevronDown,
 } from "lucide-react";
 import {
   Sidebar,
@@ -40,9 +38,10 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  const { user } = useAuth();
+  const { user, userRole } = useAuth();
   const navigate = useNavigate();
   const userInitial = user?.email?.[0].toUpperCase() || "U";
+  const profileImageUrl = "https://13b230a26e2df65b20120dfd797ddd2e.cdn.bubble.io/f1743425234044x485647232123858100/uifaces-popular-image%20%284%29.jpg?_gl=1*rz3q8v*_gcl_au*NzMzNjIyMTA2LjE3NDE5NDkyMTA.*_ga*MTQyOTYxMTA5Ny4xNzM5ODEwMDA3*_ga_BFPVR2DEE2*MTc0NjE1MTY0My4yLjAuMTc0NjE1MTY0My42MC4wLjA.";
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -129,21 +128,33 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               <div className="flex items-center gap-4">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 rounded-full">
-                      <Avatar>
-                        <AvatarFallback>{userInitial}</AvatarFallback>
-                      </Avatar>
+                    <Button variant="ghost" className="p-0 h-auto hover:bg-transparent">
+                      <div className="flex items-center gap-2">
+                        <Avatar className="h-8 w-8">
+                          <AvatarImage src={profileImageUrl} alt="User profile" />
+                          <AvatarFallback>{userInitial}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col items-start">
+                          <span className="text-sm font-medium">John Doe</span>
+                          <span className="text-xs text-muted-foreground">
+                            {userRole?.toLowerCase() || 'client'}
+                          </span>
+                        </div>
+                        <ChevronDown size={16} className="text-muted-foreground ml-1" />
+                      </div>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <div className="flex items-center justify-start gap-2 p-2">
-                      <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium">{user?.email}</p>
-                      </div>
-                    </div>
-                    <DropdownMenuItem onClick={handleSignOut}>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard/profile" className="cursor-pointer">
+                        <UserRound className="mr-2 h-4 w-4" />
+                        <span>Profile</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
                       <LogOut className="mr-2 h-4 w-4" />
-                      <span>Log out</span>
+                      <span>Sign Out</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
