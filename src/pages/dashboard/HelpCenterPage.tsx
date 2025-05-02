@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { SettingsSectionCard } from "@/pages/dashboard/settings";
-import { InfoCircle, BookOpen, MessageSquareHelp, Search, ListCheck } from "lucide-react";
+import { Info, BookOpen, MessageSquare, Search, ListCheck } from "lucide-react";
 
 const HelpCenterPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -132,7 +132,7 @@ const HelpCenterPage = () => {
 
         <Card>
           <CardHeader className="flex flex-row items-center space-x-2">
-            <MessageSquareHelp className="h-5 w-5" />
+            <MessageSquare className="h-5 w-5" />
             <div>
               <CardTitle>Community Forum</CardTitle>
             </div>
@@ -149,7 +149,7 @@ const HelpCenterPage = () => {
 
         <Card>
           <CardHeader className="flex flex-row items-center space-x-2">
-            <InfoCircle className="h-5 w-5" />
+            <Info className="h-5 w-5" />
             <div>
               <CardTitle>Contact Support</CardTitle>
             </div>
@@ -248,7 +248,7 @@ const HelpCenterPage = () => {
             </div>
 
             <Alert className="mt-8 bg-muted">
-              <InfoCircle className="h-4 w-4" />
+              <Info className="h-4 w-4" />
               <AlertTitle>Business Hours</AlertTitle>
               <AlertDescription>
                 Our support team is available Monday through Friday, 9AM to 5PM EST.
