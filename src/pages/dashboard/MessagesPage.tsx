@@ -116,6 +116,10 @@ const MessagesPage = () => {
     <div className="h-[calc(100vh-150px)] flex flex-col">
       <div className="mb-4">
         <h1 className="text-3xl font-bold">Messages</h1>
+         <Button onClick={} className="gap-2">
+          <Upload className="h-4 w-4" />
+          New Message
+        </Button>
       </div>
       
       <div className="flex flex-1 gap-4 overflow-hidden">
