@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 interface ConversationSearchProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onNewMessage: () => void;
 }
 
 export const ConversationSearch = ({ 
