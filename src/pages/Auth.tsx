@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -79,7 +80,35 @@ const Auth = () => {
           }
         });
         
-        if (signUpError) throw signUpError;
+        // Handle the case where the user is already registered
+        if (signUpError) {
+          if (signUpError.message.includes("User already registered")) {
+            // If user already exists, try to sign in instead
+            toast.info("This email is already registered. Trying to sign in...");
+            
+            const { error: signInError, data: signInData } = await supabase.auth.signInWithPassword({
+              email,
+              password
+            });
+            
+            if (signInError) {
+              // If sign in fails, show the original error
+              throw signUpError;
+            } else {
+              toast.success("Signed in successfully!");
+              // Navigate based on role after successful login
+              if (signInData.user) {
+                await navigateBasedOnRole(signInData.user.id);
+              } else {
+                navigate("/dashboard"); // Fallback
+              }
+              return;
+            }
+          } else {
+            // For other errors, just throw the original error
+            throw signUpError;
+          }
+        }
 
         // Create profile entry with role
         if (data.user) {
@@ -94,9 +123,9 @@ const Auth = () => {
           
           toast.success("Account created successfully!");
           
-          // If the user is a client, redirect to the submission form
+          // If the user is a client, redirect to the new submission form
           if (userRole === "client") {
-            navigate("/dashboard/submissions");
+            navigate("/dashboard/new-submission");
           } else {
             // Otherwise navigate based on role
             await navigateBasedOnRole(data.user.id);
