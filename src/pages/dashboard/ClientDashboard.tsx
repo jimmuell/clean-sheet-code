@@ -22,8 +22,8 @@ const ClientDashboard = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold mb-2">2</p>
-            <p className="text-muted-foreground">Active cases being handled</p>
+            <p className="text-3xl font-bold mb-2 text-primary-custom">2</p>
+            <p className="text-muted-custom">Active cases being handled</p>
           </CardContent>
         </Card>
 
@@ -35,8 +35,8 @@ const ClientDashboard = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold mb-2">4</p>
-            <p className="text-muted-foreground">Unread messages from your attorneys</p>
+            <p className="text-3xl font-bold mb-2 text-primary-custom">4</p>
+            <p className="text-muted-custom">Unread messages from your attorneys</p>
           </CardContent>
         </Card>
 
@@ -48,8 +48,8 @@ const ClientDashboard = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="font-semibold mb-1">May 5, 2025</p>
-            <p className="text-muted-foreground mb-3">10:00 AM with John Smith</p>
+            <p className="font-semibold mb-1 text-secondary-custom">May 5, 2025</p>
+            <p className="text-muted-custom mb-3">10:00 AM with John Smith</p>
             <Link to="/dashboard/calendar">
               <Button variant="outline" size="sm" className="w-full hover:bg-brand-purple/10 hover:text-brand-purple">
                 <CalendarIcon className="h-4 w-4 mr-2" /> View Calendar
@@ -66,7 +66,7 @@ const ClientDashboard = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground mb-3">Request an appointment with an attorney</p>
+            <p className="text-muted-custom mb-3">Request an appointment with an attorney</p>
             <Link to="/dashboard/calendar">
               <Button variant="default" size="sm" className="w-full bg-brand-purple hover:bg-brand-purple/90">
                 Request Appointment
@@ -78,7 +78,7 @@ const ClientDashboard = () => {
 
       <Alert className="bg-brand-blue/5 border border-brand-blue/20">
         <AlertTitle className="text-brand-blue font-medium">Welcome to your Client Dashboard!</AlertTitle>
-        <AlertDescription>
+        <AlertDescription className="text-secondary-custom">
           Track your legal cases, communicate with your attorneys, and manage your appointments all in one place.
         </AlertDescription>
       </Alert>

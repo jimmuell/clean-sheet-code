@@ -66,7 +66,11 @@ export default {
 				brand: {
 					purple: '#8B5CF6', // More vibrant purple
 					blue: '#0EA5E9',
-				}
+				},
+				// New text color palette
+				'primary-custom': 'hsl(var(--text-primary))',
+				'secondary-custom': 'hsl(var(--text-secondary))',
+				'muted-custom': 'hsl(var(--text-muted))',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
