@@ -64,10 +64,13 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen font-inter bg-hero-gradient">
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-brand-purple opacity-5 blur-3xl"></div>
-      <div className="absolute top-40 right-40 w-80 h-80 rounded-full bg-brand-blue opacity-5 blur-3xl"></div>
+    <div className="min-h-screen font-inter bg-gradient-to-b from-white to-gray-50">
+      {/* Enhanced Decorative Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute top-20 left-20 w-96 h-96 rounded-full bg-brand-purple opacity-10 blur-3xl"></div>
+        <div className="absolute top-40 right-40 w-96 h-96 rounded-full bg-brand-blue opacity-10 blur-3xl"></div>
+        <div className="absolute bottom-60 left-1/3 w-80 h-80 rounded-full bg-brand-purple/20 opacity-10 blur-3xl"></div>
+      </div>
       
       <Navigation user={user} userRole={userRole} />
 

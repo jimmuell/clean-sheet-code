@@ -64,7 +64,7 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				brand: {
-					purple: '#9b87f5',
+					purple: '#8B5CF6', // More vibrant purple
 					blue: '#0EA5E9',
 				}
 			},
@@ -119,11 +119,14 @@ export default {
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'hero-gradient': 'linear-gradient(to bottom, #ffffff, #F9FAFB)',
-				'heading-gradient': 'linear-gradient(to right, #9b87f5, #0EA5E9)'
+				'heading-gradient': 'linear-gradient(to right, #8B5CF6, #0EA5E9)'
 			},
 			fontFamily: {
 				'inter': ['Inter', 'system-ui', 'sans-serif']
-			}
+			},
+			dropShadow: {
+				'sm': '0 1px 1px rgba(0, 0, 0, 0.05)',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
