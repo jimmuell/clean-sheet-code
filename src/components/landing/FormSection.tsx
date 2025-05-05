@@ -14,7 +14,7 @@ export const FormSection = ({ setShowForm }: FormSectionProps) => {
         <Button 
           variant="outline" 
           onClick={() => setShowForm(false)}
-          className="mb-6 self-start rounded-full border-gray-300 hover:bg-gray-100/50"
+          className="mb-6 self-start border-gray-300 hover:bg-gray-100/50"
         >
           <ArrowLeft className="mr-2 h-4 w-4" /> Back to Homepage
         </Button>

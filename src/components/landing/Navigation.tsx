@@ -46,7 +46,7 @@ export const Navigation = ({ user, userRole }: NavigationProps) => {
           {user ? (
             <Button 
               onClick={handleDashboardClick}
-              className="bg-brand-purple hover:bg-brand-purple/90 rounded-full px-6"
+              className="bg-brand-purple hover:bg-brand-purple/90 px-6"
             >
               Dashboard
             </Button>
@@ -55,13 +55,13 @@ export const Navigation = ({ user, userRole }: NavigationProps) => {
               <Button 
                 variant="outline" 
                 onClick={() => navigate("/auth")}
-                className="rounded-full border-gray-300"
+                className="border-gray-300"
               >
                 Sign In
               </Button>
               <Button 
                 onClick={() => navigate("/auth?mode=signup")} 
-                className="rounded-full bg-brand-purple hover:bg-brand-purple/90 flex items-center gap-2"
+                className="bg-brand-purple hover:bg-brand-purple/90 flex items-center gap-2"
               >                
                 Sign Up
               </Button>

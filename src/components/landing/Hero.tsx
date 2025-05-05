@@ -21,14 +21,14 @@ export const Hero = ({ handleGetStarted }: HeroProps) => {
           <Button
             onClick={handleGetStarted}
             size="lg"
-            className="text-lg px-8 py-6 bg-brand-purple hover:bg-brand-purple/90 rounded-full shadow-lg transition-all duration-300"
+            className="text-lg px-8 py-6 bg-brand-purple hover:bg-brand-purple/90 shadow-lg transition-all duration-300"
           >
             Get Started <ArrowRight className="ml-2" />
           </Button>
           <Button
             variant="outline"
             size="lg"
-            className="text-lg px-8 py-6 border-gray-300 hover:bg-gray-100/50 rounded-full transition-all duration-300"
+            className="text-lg px-8 py-6 border-gray-300 hover:bg-gray-100/50 transition-all duration-300"
           >
             Learn More
           </Button>
