@@ -117,7 +117,7 @@
   }
   
   .text-muted-custom {
-    @apply text-muted-custom;
+    color: hsl(var(--text-muted));
   }
 }
 
