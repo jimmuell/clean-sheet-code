@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RoleSelector } from "@/components/auth/RoleSelector";
+import { Mail, Lock } from "lucide-react";
 
 interface CredentialsStepProps {
   email: string;
@@ -31,7 +32,10 @@ export const CredentialsStep: React.FC<CredentialsStepProps> = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email" className="flex items-center gap-2">
+          <Mail className="h-4 w-4 text-brand-purple" />
+          Email
+        </Label>
         <Input
           id="email"
           type="email"
@@ -39,10 +43,14 @@ export const CredentialsStep: React.FC<CredentialsStepProps> = ({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className="border-gray-300 focus-visible:ring-brand-purple"
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password" className="flex items-center gap-2">
+          <Lock className="h-4 w-4 text-brand-purple" />
+          Password
+        </Label>
         <Input
           id="password"
           type="password"
@@ -50,21 +58,26 @@ export const CredentialsStep: React.FC<CredentialsStepProps> = ({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="border-gray-300 focus-visible:ring-brand-purple"
         />
       </div>
 
       <RoleSelector userRole={userRole} setUserRole={handleRoleChange} />
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      <Button 
+        type="submit" 
+        className="w-full bg-brand-purple hover:bg-brand-purple/90 shadow-md transition-all"
+        disabled={isLoading}
+      >
         {isLoading ? "Loading..." : userRole === "attorney" ? "Continue to Verification" : "Get Started"}
       </Button>
 
       <div className="mt-4 text-center text-sm">
-        <p>
+        <p className="text-gray-600">
           Already have an account?{" "}
           <Button
             variant="link"
-            className="p-0 h-auto"
+            className="p-0 h-auto text-brand-purple font-medium"
             onClick={onSwitchToLogin}
             type="button"
           >

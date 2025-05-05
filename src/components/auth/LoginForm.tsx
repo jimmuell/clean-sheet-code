@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { Mail, Lock } from "lucide-react";
 
 interface LoginFormProps {
   navigateBasedOnRole: (userId: string) => Promise<void>;
@@ -57,7 +58,10 @@ export const LoginForm = ({ navigateBasedOnRole, onSwitchToSignup }: LoginFormPr
   return (
     <form onSubmit={handleLogin} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email" className="flex items-center gap-2">
+          <Mail className="h-4 w-4 text-brand-purple" />
+          Email
+        </Label>
         <Input
           id="email"
           type="email"
@@ -65,10 +69,14 @@ export const LoginForm = ({ navigateBasedOnRole, onSwitchToSignup }: LoginFormPr
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          className="border-gray-300 focus-visible:ring-brand-purple"
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password" className="flex items-center gap-2">
+          <Lock className="h-4 w-4 text-brand-purple" />
+          Password
+        </Label>
         <Input
           id="password"
           type="password"
@@ -76,19 +84,24 @@ export const LoginForm = ({ navigateBasedOnRole, onSwitchToSignup }: LoginFormPr
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="border-gray-300 focus-visible:ring-brand-purple"
         />
       </div>
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      <Button 
+        type="submit" 
+        className="w-full bg-brand-purple hover:bg-brand-purple/90 shadow-md transition-all"
+        disabled={isLoading}
+      >
         {isLoading ? "Signing in..." : "Sign In"}
       </Button>
 
       <div className="mt-4 text-center text-sm">
-        <p>
+        <p className="text-gray-600">
           Don't have an account?{" "}
           <Button
             variant="link"
-            className="p-0 h-auto"
+            className="p-0 h-auto text-brand-purple font-medium"
             onClick={onSwitchToSignup}
             type="button"
           >
