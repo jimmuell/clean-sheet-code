@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
+  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import {
@@ -140,13 +141,13 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="p-0 h-auto hover:bg-transparent">
                       <div className="flex items-center gap-2">
-                        <Avatar className="h-8 w-8">
+                        <Avatar className="h-10 w-10">
                           <AvatarImage src={profileImageUrl} alt="User profile" />
                           <AvatarFallback>{userInitial}</AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col items-start">
-                          <span className="text-sm font-medium">John Doe</span>
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-base font-semibold">John Doe</span>
+                          <span className="text-sm text-muted-foreground">
                             {userRole?.toLowerCase() || 'client'}
                           </span>
                         </div>
@@ -154,17 +155,31 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                       </div>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-48">
-                    <DropdownMenuItem asChild>
-                      <Link to="/dashboard/profile" className="cursor-pointer">
-                        <UserRound className="mr-2 h-4 w-4" />
+                  <DropdownMenuContent align="end" className="w-64">
+                    <DropdownMenuLabel className="text-lg font-semibold py-3">My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild className="py-3 text-base">
+                      <Link to="/dashboard" className="flex items-center">
+                        <LayoutDashboard className="mr-3 h-5 w-5" />
+                        <span>Dashboard</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild className="py-3 text-base">
+                      <Link to="/dashboard/profile" className="flex items-center">
+                        <UserRound className="mr-3 h-5 w-5" />
                         <span>Profile</span>
                       </Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild className="py-3 text-base">
+                      <Link to="/dashboard/settings" className="flex items-center">
+                        <Settings className="mr-3 h-5 w-5" />
+                        <span>Settings</span>
+                      </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Sign Out</span>
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-3 text-base">
+                      <LogOut className="mr-3 h-5 w-5" />
+                      <span>Logout</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
