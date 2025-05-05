@@ -53,13 +53,13 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   // Main navigation items grouped by category
   const navGroups = [
     {
-      label: "Main",
+      label: "MAIN",
       items: [
         { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
       ]
     },
     {
-      label: "Activity",
+      label: "ACTIVITY",
       items: [
         { name: "Submissions", path: "/dashboard/submissions", icon: FileText }
       ]
