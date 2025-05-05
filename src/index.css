@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,7 +36,7 @@
 
     --sidebar-background: 0 0% 98%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-foreground: 240 50% 65%; /* Adjusted to be closer to #6f78f2 */
 
     --sidebar-primary: 240 5.9% 10%;
 
