@@ -105,7 +105,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               <React.Fragment key={group.label}>
                 {index > 0 && <SidebarSeparator className="bg-purple-100/50" />}
                 <SidebarGroup>
-                  <SidebarGroupLabel className="text-xs font-medium text-brand-purple uppercase tracking-wider px-4">
+                  <SidebarGroupLabel className="text-xs font-medium text-brand-menuLabel uppercase tracking-wider px-4">
                     {group.label}
                   </SidebarGroupLabel>
                   <SidebarGroupContent>

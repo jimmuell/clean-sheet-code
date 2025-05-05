@@ -66,6 +66,7 @@ export default {
 				brand: {
 					purple: '#8B5CF6', // More vibrant purple
 					blue: '#0EA5E9',
+					menuLabel: '#6f78f2', // New color for sidebar menu labels
 				},
 				// New text color palette
 				'primary-custom': 'hsl(var(--text-primary))',
