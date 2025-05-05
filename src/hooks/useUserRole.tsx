@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const useUserRole = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
@@ -24,6 +25,7 @@ export const useUserRole = () => {
       return data?.role || null;
     } catch (err) {
       console.error("Error in getUserRole:", err);
+      toast.error("Failed to retrieve user role");
       return null;
     } finally {
       setLoadingRole(false);

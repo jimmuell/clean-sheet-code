@@ -28,16 +28,27 @@ export const LoginForm = ({ navigateBasedOnRole, onSwitchToSignup }: LoginFormPr
         password,
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error("Login error:", error);
+        toast.error(error.message || "Failed to sign in");
+        return;
+      }
       
       // Navigate based on role after successful login
       if (data.user) {
-        await navigateBasedOnRole(data.user.id);
+        try {
+          await navigateBasedOnRole(data.user.id);
+        } catch (navError) {
+          console.error("Navigation error:", navError);
+          // If role-based navigation fails, go to default dashboard
+          navigate("/dashboard");
+        }
       } else {
         navigate("/dashboard"); // Fallback
       }
     } catch (error) {
-      toast.error(error.message);
+      console.error("Unexpected login error:", error);
+      toast.error("An unexpected error occurred during sign in");
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +80,7 @@ export const LoginForm = ({ navigateBasedOnRole, onSwitchToSignup }: LoginFormPr
       </div>
 
       <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Loading..." : "Sign In"}
+        {isLoading ? "Signing in..." : "Sign In"}
       </Button>
 
       <div className="mt-4 text-center text-sm">
