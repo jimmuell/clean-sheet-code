@@ -21,6 +21,7 @@ import {
   LifeBuoy,
   ChevronDown,
   Calendar,
+  Home,
 } from "lucide-react";
 import {
   Sidebar,
@@ -55,6 +56,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     {
       label: "MAIN",
       items: [
+        { name: "Home", path: "/dashboard", icon: Home },
         { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
       ]
     },
