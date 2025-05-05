@@ -57,7 +57,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     {
       label: "MAIN",
       items: [
-        { name: "Home", path: "/dashboard", icon: Home },
+        { name: "Home", path: "/", icon: Home },
         { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
       ]
     },
