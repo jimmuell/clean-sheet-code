@@ -56,6 +56,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       label: "Main",
       items: [
         { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      ]
+    },
+    {
+      label: "Activity",
+      items: [
         { name: "Submissions", path: "/dashboard/submissions", icon: FileText }
       ]
     },
