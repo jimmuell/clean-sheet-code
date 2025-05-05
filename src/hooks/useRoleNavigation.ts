@@ -8,7 +8,7 @@ export const useRoleNavigation = () => {
   const navigateBasedOnRole = async (userId: string): Promise<void> => {
     try {
       const { data: profileData, error: profileError } = await supabase
-        .from('profile')
+        .from('profiles')
         .select('role')
         .eq('user_id', userId)
         .single();

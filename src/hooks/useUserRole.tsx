@@ -10,7 +10,7 @@ export const useUserRole = () => {
     try {
       setLoadingRole(true);
       const { data, error } = await supabase
-        .from('profile')
+        .from('profiles')
         .select('role')
         .eq('user_id', userId)
         .single();
