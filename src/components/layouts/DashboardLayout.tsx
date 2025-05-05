@@ -95,10 +95,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-gray-100">
-        <Sidebar className="bg-white border-r" collapsible="icon">
+      <div className="min-h-screen flex w-full bg-gradient-to-b from-white to-gray-50">
+        <Sidebar className="bg-white border-r shadow-sm" collapsible="icon">
           <SidebarHeader>
-            <h2 className="text-xl font-bold px-4 group-data-[collapsible=icon]:hidden">LinkToLawyers</h2>
+            <h2 className="text-xl font-bold px-4 bg-heading-gradient bg-clip-text text-transparent group-data-[collapsible=icon]:hidden">LinkToLawyers</h2>
           </SidebarHeader>
           <SidebarContent>
             {navGroups.map((group, index) => (
@@ -113,7 +113,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                       {group.items.map((item) => (
                         <SidebarMenuItem key={item.name}>
                           <SidebarMenuButton asChild tooltip={item.name}>
-                            <Link to={item.path} className="text-lg py-3">
+                            <Link to={item.path} className="text-lg py-3 hover:text-brand-purple transition-colors">
                               <item.icon size={22} />
                               <span className="text-base ml-1">{item.name}</span>
                             </Link>
@@ -131,7 +131,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
         <div className="flex-1">
           {/* Navbar */}
-          <header className="bg-white border-b">
+          <header className="bg-white border-b shadow-sm">
             <div className="flex h-14 items-center justify-between px-4">
               <SidebarTrigger />
               <div className="flex items-center gap-4">
@@ -153,29 +153,29 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                       </div>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-64">
+                  <DropdownMenuContent align="end" className="w-64 border border-gray-200 shadow-lg">
                     <DropdownMenuLabel className="text-lg font-semibold py-3">My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild className="py-3 text-base">
+                    <DropdownMenuItem asChild className="py-3 text-base hover:text-brand-purple">
                       <Link to="/dashboard" className="flex items-center">
                         <LayoutDashboard className="mr-3 h-5 w-5" />
                         <span>Dashboard</span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild className="py-3 text-base">
+                    <DropdownMenuItem asChild className="py-3 text-base hover:text-brand-purple">
                       <Link to="/dashboard/profile" className="flex items-center">
                         <UserRound className="mr-3 h-5 w-5" />
                         <span>Profile</span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild className="py-3 text-base">
+                    <DropdownMenuItem asChild className="py-3 text-base hover:text-brand-purple">
                       <Link to="/dashboard/settings" className="flex items-center">
                         <Settings className="mr-3 h-5 w-5" />
                         <span>Settings</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-3 text-base">
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-3 text-base text-red-500 hover:text-red-600">
                       <LogOut className="mr-3 h-5 w-5" />
                       <span>Logout</span>
                     </DropdownMenuItem>

@@ -8,9 +8,9 @@ export const VerificationPending = () => {
   const navigate = useNavigate();
   
   return (
-    <Card className="p-8 text-center">
+    <Card className="p-8 text-center shadow-lg border border-gray-100">
       <div className="flex flex-col items-center justify-center space-y-4">
-        <div className="h-16 w-16 rounded-full bg-brand-purple/10 flex items-center justify-center">
+        <div className="h-16 w-16 rounded-full bg-brand-purple/15 flex items-center justify-center shadow-md">
           <Loader className="h-8 w-8 text-brand-purple animate-spin" />
         </div>
         

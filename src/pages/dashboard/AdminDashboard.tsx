@@ -9,12 +9,12 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 bg-heading-gradient bg-clip-text text-transparent">Admin Dashboard</h1>
       
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 mb-6">
-        <Card className="shadow-sm">
+        <Card className="shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-brand-purple">
               <UsersIcon className="h-5 w-5" />
               User Management
             </CardTitle>
@@ -25,9 +25,9 @@ const AdminDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm">
+        <Card className="shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-brand-purple">
               <ScaleIcon className="h-5 w-5" />
               Attorney Approvals
             </CardTitle>
@@ -38,9 +38,9 @@ const AdminDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm">
+        <Card className="shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-brand-purple">
               <BarChartIcon className="h-5 w-5" />
               Platform Analytics
             </CardTitle>
@@ -52,8 +52,8 @@ const AdminDashboard = () => {
         </Card>
       </div>
 
-      <Alert>
-        <AlertTitle>Welcome to the Admin Dashboard!</AlertTitle>
+      <Alert className="bg-brand-blue/5 border border-brand-blue/20">
+        <AlertTitle className="text-brand-blue font-medium">Welcome to the Admin Dashboard!</AlertTitle>
         <AlertDescription>
           Manage users, review attorney applications, and monitor platform performance from this central hub.
         </AlertDescription>

@@ -11,12 +11,12 @@ const ClientDashboard = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-bold mb-6">Client Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 bg-heading-gradient bg-clip-text text-transparent">Client Dashboard</h1>
       
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 mb-6">
-        <Card className="shadow-sm">
+        <Card className="shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-brand-purple">
               <FileTextIcon className="h-5 w-5" />
               Your Cases
             </CardTitle>
@@ -27,9 +27,9 @@ const ClientDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm">
+        <Card className="shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-brand-purple">
               <MessageSquareIcon className="h-5 w-5" />
               Messages
             </CardTitle>
@@ -40,9 +40,9 @@ const ClientDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm">
+        <Card className="shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-brand-purple">
               <ClockIcon className="h-5 w-5" />
               Next Appointment
             </CardTitle>
@@ -51,16 +51,16 @@ const ClientDashboard = () => {
             <p className="font-semibold mb-1">May 5, 2025</p>
             <p className="text-muted-foreground mb-3">10:00 AM with John Smith</p>
             <Link to="/dashboard/calendar">
-              <Button variant="outline" size="sm" className="w-full">
+              <Button variant="outline" size="sm" className="w-full hover:bg-brand-purple/10 hover:text-brand-purple">
                 <CalendarIcon className="h-4 w-4 mr-2" /> View Calendar
               </Button>
             </Link>
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm">
+        <Card className="shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-brand-purple">
               <CalendarIcon className="h-5 w-5" />
               Schedule Consultation
             </CardTitle>
@@ -68,7 +68,7 @@ const ClientDashboard = () => {
           <CardContent>
             <p className="text-muted-foreground mb-3">Request an appointment with an attorney</p>
             <Link to="/dashboard/calendar">
-              <Button variant="default" size="sm" className="w-full">
+              <Button variant="default" size="sm" className="w-full bg-brand-purple hover:bg-brand-purple/90">
                 Request Appointment
               </Button>
             </Link>
@@ -76,8 +76,8 @@ const ClientDashboard = () => {
         </Card>
       </div>
 
-      <Alert>
-        <AlertTitle>Welcome to your Client Dashboard!</AlertTitle>
+      <Alert className="bg-brand-blue/5 border border-brand-blue/20">
+        <AlertTitle className="text-brand-blue font-medium">Welcome to your Client Dashboard!</AlertTitle>
         <AlertDescription>
           Track your legal cases, communicate with your attorneys, and manage your appointments all in one place.
         </AlertDescription>
