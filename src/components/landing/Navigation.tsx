@@ -32,20 +32,37 @@ export const Navigation = ({ user, userRole }: NavigationProps) => {
   };
 
   return (
-    <nav className="bg-white border-b py-4 px-6">
+    <nav className="bg-transparent py-5 px-6 relative z-10">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="text-2xl font-bold">LinkToLawyers</div>
+        <div className="text-2xl font-bold bg-heading-gradient bg-clip-text text-transparent">LinkToLawyers</div>
+        
+        <div className="hidden md:flex space-x-6">
+          <a href="#how-it-works" className="text-gray-600 hover:text-brand-purple transition-colors">How It Works</a>
+          <a href="#about" className="text-gray-600 hover:text-brand-purple transition-colors">About</a>
+          <a href="#contact" className="text-gray-600 hover:text-brand-purple transition-colors">Contact</a>
+        </div>
+        
         <div className="space-x-4">
           {user ? (
-            <Button onClick={handleDashboardClick}>
+            <Button 
+              onClick={handleDashboardClick}
+              className="bg-brand-purple hover:bg-brand-purple/90 rounded-full px-6"
+            >
               Dashboard
             </Button>
           ) : (
             <div className="flex items-center space-x-4">
-              <Button variant="outline" onClick={() => navigate("/auth")}>
+              <Button 
+                variant="outline" 
+                onClick={() => navigate("/auth")}
+                className="rounded-full border-gray-300"
+              >
                 Sign In
               </Button>
-              <Button onClick={() => navigate("/auth?mode=signup")} className="flex items-center gap-2">                
+              <Button 
+                onClick={() => navigate("/auth?mode=signup")} 
+                className="rounded-full bg-brand-purple hover:bg-brand-purple/90 flex items-center gap-2"
+              >                
                 Sign Up
               </Button>
             </div>

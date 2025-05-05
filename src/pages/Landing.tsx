@@ -64,7 +64,11 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen font-inter bg-hero-gradient">
+      {/* Decorative Elements */}
+      <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-brand-purple opacity-5 blur-3xl"></div>
+      <div className="absolute top-40 right-40 w-80 h-80 rounded-full bg-brand-blue opacity-5 blur-3xl"></div>
+      
       <Navigation user={user} userRole={userRole} />
 
       {/* Main Content - Either Hero or Form */}
